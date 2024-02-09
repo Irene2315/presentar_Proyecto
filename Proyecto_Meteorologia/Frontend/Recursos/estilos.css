@@ -415,12 +415,16 @@ h3 {
   font-size: 20px;
 }
 
+#resultadoLugarConcreto{
+  margin-bottom: 10%;
+}
+
 .card {
   background-color: transparent;
   width: 200px;
   height: 350px;
   perspective: 1000px;
-  margin: 10px;
+  margin: 30px;
 
 
 
@@ -571,10 +575,8 @@ h3 {
 
 #selectorLugar {
 
-  float: left;
-
   margin-top: 5%;
-  margin-left: 10%;
+  
 }
 
 #selectorLugar select {
@@ -582,23 +584,33 @@ h3 {
   background-color: black;
 }
 
-#calendario input {
 
+
+#calendario {
+  display: inline-flex;
+  margin: 0px;
+  
+  
+}
+#calendario input {
+  
+  color: white;
   background-color: black;
 
 }
-
-#calendario {
-
-  margin-top: 1%;
-  margin-bottom: 100px;
-  margin-left: 10%;
-}
-
 #calendario label {
 
   margin-left: 1%;
 
+}
+#construirGrafico{
+  margin-left: 1%;
+}
+
+#regresarFormulario{
+  margin-right: 1%;
+  
+  
 }
 
 #casoCamposVacios {
@@ -612,10 +624,11 @@ h3 {
 #grafico {
   margin-top: 5%;
   background-color: white;
-  width: 50%;
-  height: 100px;
-  max-width: 1000px;
-  margin-left: 10%;
+  max-height: 400px;
+  max-width: 500px;
+  margin-left: 25%;
+  border: 2px solid black;
+  border-radius: 5%;
 }
 
 
@@ -900,11 +913,30 @@ footer {
     height: 90px;
     font-size: 18px;
   }
-  .card-body{
-    margin-left: 5%;
-    width: 300px;
-    height: 200px;
+  .card {
+    
+    height: 350px;
+    
   }
+  .card-body{
+    margin-right: 1%;
+    width: 350px;
+    
+  }
+  .imgFront {
+    margin: 0%;
+    width: 50%;
+    height: 150px;
+  
+  }
+  .card-texto {
+    margin: 0px;
+    
+    margin-left: 100px;
+  
+  }
+  
+  
   
   
 

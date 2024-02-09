@@ -268,14 +268,15 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    
+
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 col-lg-6 col-sm-6 d-flex justify-content-center">
-                        <img src="/recursos/Fotos/Logo.PNG" id="imagePortada_2" >
+                        <img src="/recursos/Fotos/Logo.PNG" id="imagePortada_2">
                     </ul>
-                    
+
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 col-lg-6 col-sm-6 d-flex justify-content-end">
                         <div class="widget">
-                            <input id="logout" class="ui-button ui-widget ui-corner-all" type="submit" value="Cerrar_Sesion">
+                            <input id="logout" class="ui-button ui-widget ui-corner-all" type="submit"
+                                value="Cerrar_Sesion">
                             <!--<button id="logout" class="ui-button ui-widget ui-corner-all" type="submit"
                                 value="Cerrar_Sesion" onclick="CierreSesion()">Cerrar Sesion</button>-->
                         </div>
@@ -283,9 +284,9 @@
                 </div>
             </div>
         </nav>
-        
-        
-        
+
+
+
 
 
         <!--Div principal que contendrá el formulario de logueo-->
@@ -343,34 +344,57 @@
 
                 <div id="resultadoLugarConcreto">
                     <h2 class="subtitulos" id="lugarConcreto">MEDIR LA TEMPERATURA Y HUMEDAD GRÁFICO</h2>
-                    <div id="selectorLugar"></div>
-                    <div id="calendario">
-                        <label for="desde">Desde</label>
-                        <input type="text" id="desde" name="desde">
-                        <label for="hasta">Hasta</label>
-                        <input type="text" id="hasta" name="hasta">
-                    </div>
+                    <section class="row">
+                        <main class="col-lg-6 col-md-6 col-xs-12">
+                            <div id="selectorLugar"></div>
+                            <div id="calendario">
+                                <label for="desde">Desde</label>
+                                <input type="text" id="desde" name="desde">
+                                <label for="hasta">Hasta</label>
+                                <input type="text" id="hasta" name="hasta">
+                            </div>
+                        </main>
+                        <main class="col-lg-4 col-md-6 col-xs-12">
+                            <div id="ContenedorGrafico"></div>
+                        </main>
+                        <main class="col-lg-4 col-md-6 col-xs-12">
+                            
+                        </main>
+                    </section>
+                    <section class="row">
+                        <main class="col-lg-6 col-md-6 col-xs-12">
+                            
+                        </main>
+                        <main class="col-lg-6 col-md-6 col-xs-12">
+    
+                               
+                            
+                        </main>
+                    </section>
+                    <section class="row">
+                        <main class="col-lg-6 col-md-12 col-xs-12">
+                            <div id="casoCamposVacios">
+                                <div class="alert alert-danger" role="alert">
+                                    No has llenado todos los campos!
+                                </div>
+                            </div>
+                        </main>
+                    </section>
+                    <section class="row">
+                        <main class="col-lg-12 col-md-12 col-xs-12">
+                            <button id="construirGrafico" onclick="datosGrafico()"
+                                class="ui-button ui-widget ui-corner-all" type="submit"
+                                value="envioGrafico">envioGrafico</button>
+                            <button id="regresarFormulario" onclick="activarForm()"
+                                class="ui-button ui-widget ui-corner-all" type="submit" value="Regresar Formulario">regresar
+                                Form</button>
+                        </main>
+                    </section>
+                    <section class="row">
+                        
+                    </section>
 
-                    <button id="construirGrafico" onclick="datosGrafico()" class="ui-button ui-widget ui-corner-all"
-                        type="submit" value="envioGrafico">envioGrafico</button>
-
-                    <div id="casoCamposVacios">
-                        <div class="alert alert-danger" role="alert">
-                            No has llenado todos los campos!
-                        </div>
-                    </div>
-
-                    <div id="ContenedorGrafico">
-
-                    </div>
-
-                    <button id="regresarFormulario" onclick="activarForm()" class="ui-button ui-widget ui-corner-all"
-                        type="submit" value="Regresar Form">regresar Form</button>
-
-
-
-
-
+                       
 
                 </div>
 
@@ -418,7 +442,7 @@
 
 
 <script>
-    
+
     $("#BodyLoginForm").css("display", "none");
     $("#bodyLoginResultados").css("display", "none");
     $("#grafico").css("display", "none");

@@ -1,0 +1,71 @@
+version: '3.1'
+
+services:
+  nginx:
+    image: nginx
+    restart: always
+    ports:
+      - "8090:80"
+    volumes:
+      - ./default.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - apache_frontend
+    
+
+  apache_frontend:
+    image: httpd:latest
+    restart: always
+    volumes:
+      - ./Frontend/index.html:/usr/local/apache2/htdocs/index.html
+      - ./Frontend/Recursos:/usr/local/apache2/htdocs/recursos
+    ports:
+      - "8080:80"
+    
+
+  mysql:
+    image: mysql:latest
+    restart: always
+    volumes:
+      - "./mysql-data/:/var/lib/mysql"
+    environment:
+      MYSQL_DATABASE: dbMeteo
+      MYSQL_USER: irene
+      MYSQL_PASSWORD: irene
+      MYSQL_ROOT_PASSWORD: irene
+    ports:
+      - "3306:3306"
+    
+  laravel_recolectarDatos:
+    image: irene2315/dependencias-laravel:tag
+    restart: always
+    volumes:
+      - ./Backend/laravel_recolectarDatos/:/var/www/html
+    ports:
+      - "8082:8000"
+    command: ["php", "artisan", "schedule:work","--verbose"]
+    depends_on:
+      - mysql
+    environment:
+      USAR_WORKER: 1
+
+  laravel_EURISUN:
+    image: irene2315/dependencias-laravel:tag
+    restart: always
+    volumes:
+      - ./Backend/laravel_EURISUN:/var/www/html
+    ports:
+      - "8083:8000"
+    depends_on:
+      - mysql
+    environment:
+      USAR_WORKER: 0
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - "8084:80"
+    environment:
+      PMA_HOST: mysql
+    depends_on:
+      - mysql

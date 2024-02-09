@@ -1,0 +1,230 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  color: white;
+}
+
+#BodyPortada {
+  background: linear-gradient(to right, #42086f, #8d8580);
+  background-repeat: no-repeat;
+  background-size: cover;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+}
+
+@font-face{
+  font-family:Climate_Crisis;
+  src:url(/recursos/Fuentes/Climate_Crisis/ClimateCrisis-Regular-VariableFont_YEAR.ttf);
+  }
+h1{
+  margin-top: 1%;
+  font-family:Climate_Crisis;
+}
+
+#imagePortada {
+  
+  margin-top: 10px;
+  width: 100px;
+  height: 90px;
+}
+
+#log{
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}
+#tabs{
+  width: 390px;
+  float: right;
+
+}
+
+#tabs-0{
+  display: none !important;
+  visibility: hidden !important;
+  padding:  0 !important;
+  margin:  0 !important;
+}
+
+.form {
+  
+  flex-direction: column;
+  gap: 10px;
+  width: 300px;
+  height: 400px;
+  
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 20px;
+ 
+}
+
+
+.title {
+  font-size: 28px;
+  color: royalblue;
+  font-weight: 600;
+  letter-spacing: -1px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+}
+
+.title::before,.title::after {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  left: 0px;
+  background-color: royalblue;
+}
+
+.title::before {
+  width: 18px;
+  height: 18px;
+  background-color: royalblue;
+}
+
+.title::after {
+  width: 18px;
+  height: 18px;
+  animation: pulse 1s linear infinite;
+}
+
+.message, .signin {
+  color: rgba(88, 87, 87, 0.822);
+  font-size: 14px;
+}
+
+.signin {
+  text-align: center;
+}
+
+.signin a {
+  color: royalblue;
+}
+
+.signin a:hover {
+  text-decoration: underline royalblue;
+}
+
+.flex {
+  display: flex;
+  width: 100%;
+  gap: 6px;
+}
+
+
+.form label {
+  position: relative;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+input{
+  color: black;
+  max-width: 400px;
+  float: left;
+  clear: both;
+}
+.form label .input {
+  
+  width: 100%;
+  padding: 10px 10px 20px 10px;
+  outline: 0;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+}
+
+.form label .input + span {
+  position: absolute;
+  left: 10px;
+  top: 30px;
+  color: grey;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
+}
+
+.form label .input:placeholder-shown + span {
+  top: 15px;
+  font-size: 0.9em;
+}
+
+.form label .input:focus + span,.form label .input:valid + span {
+  top: 40px;
+  font-size: 0.7em;
+  font-weight: 600;
+}
+
+
+
+.enviar{
+  clear: both;
+  margin-left: 5%;
+  margin-top: 5px;
+  float: left;
+  border: none;
+  outline: none;
+  background-color: royalblue;
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  transform: .3s ease;
+}
+
+.enviar:hover {
+  background-color: rgb(21, 59, 174);
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+.entrada{
+  margin-top: 1%;
+}
+.entrada img{
+  width: 200px;
+  height: 200px;
+}
+.carousel-item {
+  margin-left: 10%;
+  width: 80%;
+}
+
+.carousel-item img {
+  margin-top: 1%;
+  height: 800px;
+  border: 1px solid black;
+  border-radius: 1%;
+}
+
+.articulo{
+  background-color: rgba(0, 0, 0, 0.459);
+  color: white;
+  align-items: center;
+  width: 80%;
+  height: 100px;
+  margin-left: 10%;
+}
+
+footer{
+  margin-top: 1%;
+  background: black;
+  width: 100%;
+  height: 200px;
+}

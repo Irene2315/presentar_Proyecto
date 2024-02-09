@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery UI Tabs - Default functionality</title>
+  <link rel="stylesheet" href="jquery-ui-1.13.2.custom/jquery-ui.min.css">
+  <script src="jquery-ui-1.13.2.custom/external/jquery/jquery.js"></script>
+  <script src="jquery-ui-1.13.2.custom/jquery-ui.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="prueba.css">
+  <script>
+    $( function() {
+      $( "#tabs" ).tabs({
+        beforeLoad: function( event, ui ) {
+          ui.jqXHR.fail(function() {
+            ui.panel.html(
+              "Couldn't load this tab. We'll try to fix this as soon as possible. " +
+              "If this wouldn't be a demo." );
+          });
+        }
+      });
+    } );
+    </script>
+</head>
+<body>
+ 
+<div id="tabs">
+  <ul>
+    <li id="tabs-0"><a  href="#tabs-0"></a></li>
+    <li><a href="#tabs-1">Registrarse</a></li>
+    <li><a href="#tabs-2">Iniciar Sesión</a></li>
+    
+  </ul>
+  <div id="tabs-1">
+    <form class="form">
+        <p class="title">Registro </p>
+        <p class="message">¿No te has registrado? </p>
+            <div class="flex">
+            <label>
+                <input required="" placeholder="" type="text" class="input">
+                <span>Nombre</span>
+            </label>
+    
+            <label>
+                <input required="" placeholder="" type="text" class="input">
+                <span>Apellido</span>
+            </label>
+        </div>  
+                
+        <label>
+            <input required="" placeholder="" type="email" class="input">
+            <span>Correo</span>
+        </label> 
+            
+        <label>
+            <input required="" placeholder="" type="password" class="input">
+            <span>Contraseña</span>
+        </label>
+        
+        <button id="Registro" class="enviar">Enviar_Registro</button>
+        
+    </form>
+  </div>
+  <div id="tabs-2">
+    <form class="form">
+        <p class="title">Logueate</p>
+            
+        <label>
+            <input required="" placeholder="" type="email" class="input">
+            <span>Correo</span>
+        </label> 
+
+        <label>
+            <input required="" placeholder="" type="password" class="input">
+            <span>Contraseña</span>
+        </label>
+        
+        <button id="Logueo" class="enviar">Enviar_Logueo</button>
+        
+    </form>
+    
+  </div>
+  
+</div>
+ 
+ 
+</body>
+</html>

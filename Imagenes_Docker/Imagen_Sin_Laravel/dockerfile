@@ -1,0 +1,51 @@
+# Partimos de la imagen php en su versión 7.4
+FROM php:8.2-cli
+
+# Copiamos los archivos package.json composer.json y composer-lock.json a /var/www/
+COPY composer*.json /var/www/
+
+# Nos movemos a /var/www/
+WORKDIR /var/www/
+
+# Instalamos las dependencias necesarias
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libzip-dev \
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    libonig-dev \
+    locales \
+    zip \
+    jpegoptim optipng pngquant gifsicle \
+    vim \
+    git \
+    curl
+
+# Instalamos extensiones de PHP
+RUN docker-php-ext-install pdo_mysql zip exif pcntl
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+RUN docker-php-ext-install gd
+
+# Instalamos composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Actualizamos composer
+RUN composer self-update
+
+# Cambia al directorio de trabajo de Laravel
+WORKDIR /var/www/html
+
+# Solo si la carpeta tiene instalado el php y composer podrá instalar las dependencias
+RUN if [ -z "$(ls -A /var/www/html/)" ]; then \
+        echo "La carpeta está vacía."; \
+    else \
+        # Ejecutar los comandos de instalación si la carpeta no está vacía
+        composer install --ignore-platform-reqs --no-scripts --no-plugins --no-dev --optimize-autoloader --no-interaction && composer require laravel/passport --ignore-platform-reqs; \
+    fi
+
+# Exponer el puerto 81
+EXPOSE 8000
+
+# Inicia el servidor web de PHP en el puerto 81
+CMD ["sh", "-c", "if php artisan migrate | grep -q 'Nothing to migrate'; then php artisan serve --host=0.0.0.0 --port=8000; else php artisan passport:install --force && php artisan serve --host=0.0.0.0 --port=8000; fi && if [ -z \"$(ls -A /var/www/html/vendor)\" ]; then composer install --ignore-platform-reqs --no-scripts --no-plugins --no-dev --optimize-autoloader --no-interaction; else echo \"Paquetes ya instalados! Omitiendo instalacion...\"; fi && if [ $USAR_WORKER -eq 1 ]; then php artisan migrate && php artisan schedule:work; else if php artisan migrate | grep -q 'Nothing to migrate'; then php artisan serve --host=0.0.0.0 --port=8000; else php artisan passport:install --force && php artisan serve --host=0.0.0.0 --port=8000; fi; fi"]

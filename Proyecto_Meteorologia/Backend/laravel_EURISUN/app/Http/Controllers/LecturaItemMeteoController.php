@@ -57,15 +57,15 @@ class LecturaItemMeteoController extends Controller
 
         
         $itemsLugar = Lectura_Item_Meteo::where('idLugar', $idLugar)
-            ->whereBetween('fecha_hora', [$fechaInicio, $fechaFin])
-            ->groupBy(Lectura_Item_Meteo::raw('DATE(fecha_hora)'))
-            ->select([
-                Lectura_Item_Meteo::raw('DATE(fecha_hora) as fecha'),
-                Lectura_Item_Meteo::raw('AVG(valorTemp) as mediaTemp'),
-                Lectura_Item_Meteo::raw('AVG(valorHumedad) as mediaHumedad')
-            ])
-            ->orderBy('fecha', 'ASC') 
-            ->get();
+    ->whereBetween('fecha_hora', [$fechaInicio, $fechaFin])
+    ->groupBy(Lectura_Item_Meteo::raw('DATE(fecha_hora)'))
+    ->select([
+        Lectura_Item_Meteo::raw('DATE(fecha_hora) as fecha'),
+        Lectura_Item_Meteo::raw('ROUND(AVG(valorTemp), 2)  as mediaTemp'),
+        Lectura_Item_Meteo::raw('ROUND(AVG(valorHumedad), 2)  as mediaHumedad')
+    ])
+    ->orderBy('fecha', 'ASC') 
+    ->get();
 
 
 

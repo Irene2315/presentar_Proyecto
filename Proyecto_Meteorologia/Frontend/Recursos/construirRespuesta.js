@@ -1,4 +1,4 @@
-var nombreHost = new URL (window.location.origin).hostname;
+var nombreHost = new URL(window.location.origin).hostname;
 
 function gestionDeRespuesta() {
 
@@ -68,7 +68,7 @@ function gestionDeRespuesta() {
         })
         .catch(err => console.error(err));
     //Items Lugar Ahora
-    fetch(`http://${nombreHost}:8083/api/itemsLugarAhora/ `+ cadenaLugares, options)
+    fetch(`http://${nombreHost}:8083/api/itemsLugarAhora/ ` + cadenaLugares, options)
         .then(response => response.json())
         .then(data => {
             console.log("Respuesta_LugarAhora:");
@@ -98,7 +98,7 @@ function construccionCards() {
     var cadenaLugares = localStorage.getItem('lugaresSeleccion');
     var cadenaItemsMeteo = localStorage.getItem('guardadoItems');
 
-   
+
     var arrayItems = JSON.parse(cadenaItemsMeteo);
 
 
@@ -113,7 +113,7 @@ function construccionCards() {
     //console.log(arrayItems);
 
     var lugaresSelect = [];
-    
+
     fetch(`http://${nombreHost}:8083/api/lugaresSeleccionados/` + cadenaLugares, options)
         .then(response => response.json())
         .then(data => {
@@ -214,19 +214,19 @@ function construccionCards() {
 
 
 
-    fetch(`http://${nombreHost}:8083/api/itemsLugarAhora/ `+ cadenaLugares, options)
+    fetch(`http://${nombreHost}:8083/api/itemsLugarAhora/ ` + cadenaLugares, options)
         .then(response => response.json())
         .then(data => {
 
             data.forEach(itemsLugarSelectAhora => {
                 const peticionActual = consultas.find(consulta => consulta.idLugar == itemsLugarSelectAhora.idLugar);
-            
+
                 fetch(peticionActual.consulta, options)
                     .then(response => response.text())
                     .then(text => {
                         const decoder = new TextDecoder('iso-8859-1');
                         const decodedText = decoder.decode(new Uint8Array(text.split('').map(char => char.charCodeAt(0))));
-            
+
                         try {
                             const jsonData = JSON.parse(decodedText);
                             peticionActual.prevision = jsonData["trends"]["set"][0]["symbolSet"]["weather"]["descriptionByLang"]["SPANISH"];
@@ -451,13 +451,13 @@ function datosGrafico() {
 
     if (fechaDesde.trim() == '' || fechaHasta.trim() == '' || lugarSeleccionado.trim() == '') {
 
-        $("#casoCamposVacios").css("display", "block");
+        $("#casoCamposVacios").css("visibility", "visible");
 
     }
 
     else {
 
-        $("#casoCamposVacios").css("display", "none");
+        $("#casoCamposVacios").css("visibility", "hidden");
 
         console.log("Fecha Desde:", fechaDesde);
         console.log("Fecha Hasta:", fechaHasta);
@@ -479,7 +479,9 @@ function datosGrafico() {
                 console.log("Respuesta_ItemsLugar:");
                 //console.log(data);
 
-
+                fechas = [];
+                temperaturas = [];
+                humedades = [];
 
                 data.forEach(itemDataSelect => {
                     //console.log(itemDataSelect);
@@ -508,15 +510,14 @@ function datosGrafico() {
 let grafico = null;
 
 function construirGrafico() {
-    
     if (grafico) {
         
         grafico.data.labels = fechas;
         grafico.data.datasets[0].data = temperaturas;
         grafico.data.datasets[1].data = humedades;
-        grafico.update(); 
+
+        grafico.update();
     } else {
-       
         const canvas = document.createElement("canvas");
         canvas.id = "grafico";
         document.getElementById("ContenedorGrafico").appendChild(canvas);
@@ -576,5 +577,3 @@ function construirGrafico() {
 
     $("#grafico").css("display", "block");
 }
-
-

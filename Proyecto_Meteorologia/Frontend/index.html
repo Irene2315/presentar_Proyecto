@@ -5,42 +5,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!--Inportamos las librerias para que funcionen el mapa-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+
+    <!--Importamos las librerias necesarias para que funcione bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!--Inportamos las librerias necesarias para se apliquen los estilos de jquery que he definido-->
     <link rel="stylesheet" href="/recursos/jquery-ui-1.13.2.custom/jquery-ui.min.css">
     <script src="/recursos/jquery-ui-1.13.2.custom/external/jquery/jquery.js"></script>
     <script src="/recursos/jquery-ui-1.13.2.custom/jquery-ui.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+
+    <!--Tendremos que importar una librería aparte de idioma el cual nos proporcionará que el calendario este en español-->
     <script src="/recursos/i18n/jquery.ui.datepicker-es.js"></script>
+
+    <!--Para contruir el gráfico con charts será necesario importar está librería-->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
 
-
-
+    <!--Importamos tambien los estilos css que bayamos a usar -->
     <link rel="stylesheet" type="text/css" href="/recursos/estilos.css">
 
-
-    <script>
-        $(function () {
-            $(".widget input[type=submit], .widget a, .widget button").button();
-            $("button, input, a").on("click", function (event) {
-                event.preventDefault();
-            });
-        });
-    </script>
-
-    <script>
-        $(function () {
-            $('[data-tooltip="tooltip"]').tooltip();
-
-
-            $('[title]').tooltip();
-        });
-    </script>
-
+    <!--Estos son los scripts que usaré de jquery ui -->
+    <!--Este script hace referencia a los tabs que usaré para las pestañas de loging y register-->
     <script>
         $(function () {
             $("#tabs").tabs({
@@ -54,20 +45,37 @@
         });
     </script>
 
+    <!--Este otro script será el formato principal que usaré para construir los distintos botones de mi aplicación-->
+    <script>
+        $(function () {
+            $(".widget input[type=submit], .widget a, .widget button").button();
+            $("button, input, a").on("click", function (event) {
+                event.preventDefault();
+            });
+        });
+    </script>
+
+    <!--Este otro scrpt hará referencia a las dintintas aclaraciones y informacion adicional sobre los objetos-->
+    <script>
+        $(function () {
+            $('[data-tooltip="tooltip"]').tooltip();
+
+
+            $('[title]').tooltip();
+        });
+    </script>
 
 </head>
 
-
-
-
-
 <body>
-    <!--Portada principal-->
+    <!--Portada principal, es decir la carta de presentaccion de mi aplicacion-->
     <div id="BodyPortada">
+        <!--Este js se iniciará para gestionar las peticiones del regiter,login y logout-->
         <script src="/recursos/peticiones.js"></script>
+        <!--La estructurá de navbar hace referencia a que en terminos generales
+        usaré un formato responsive boostrap para mi aplicación-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -78,26 +86,33 @@
 
 
                     </ul>
+                    <!--Aquí iria el logo principal de nuestra aplicacion-->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <img src="/recursos/Fotos/Logo.PNG" id="imagePortada">
 
                     </ul>
+                    <!--Este apartado es el formulario principal que tiene logueo y registro-->
                     <form id="log" class="d-flex">
+                        <!--Esta estructura de tabs la use de una plantilla de jquery-->
                         <div id="tabs">
                             <ul>
                                 <li id="tabs-0"><a href="#tabs-0"></a></li>
                                 <li><a href="#tabs-1">Registro</a></li>
                                 <li><a href="#tabs-2">Logueo</a></li>
 
-
                             </ul>
+                            <!--Esta plantilla tiene un error y es que yo quiero que no salga
+                            ninguna ventana activa por defecto y la plantilla siempre muestra una-->
+
+                            <!--Solución: Poner un tab oculto que haga esa funcion de esta forma
+                            aparentemente ningun tab estará activo-->
                             <div id="tabs-0">
                                 <form class="form_1">
 
                                 </form>
 
                             </div>
-
+                            <!--Tab que contiene el formulario de registro-->
                             <div id="tabs-1">
                                 <div id="Registro" class="form_1">
                                     <p class="title">Registro </p>
@@ -108,8 +123,6 @@
                                                 class="input" autocomplete="username">
                                             <span>Nombre</span>
                                         </label>
-
-
                                     </div>
 
                                     <label>
@@ -124,13 +137,15 @@
 
                                         <span>Contraseña</span>
                                     </label>
-
+                                    <!--El boton enviará los datos del registro a la base de datos y accederemos
+                                    al formulario meteorologico principal-->
                                     <button onclick="registro()" id="EnvioRegistro" class="enviar" type="submit"
                                         value="Enviar_Registro">Enviar_Registro
                                     </button>
 
                                 </div>
                             </div>
+                            <!--Tab que contiene el formulario de logueo -->
                             <div id="tabs-2">
                                 <div id="Logueo" class="form_1">
                                     <p class="title">Logueo </p>
@@ -147,7 +162,8 @@
                                         <span>Contraseña</span>
                                     </label>
 
-
+                                    <!--El boton enviará los datos del loging accederemos
+                                    al formulario meteorologico principal-->
                                     <button onclick="logueo()" id="Login" class="enviar" type="submit"
                                         value="Enviar_Login">Enviar_Login
                                     </button>
@@ -163,12 +179,13 @@
                 </div>
             </div>
         </nav>
+        <!--Título principal de bienvenida-->
         <div class="entrada">
             <img src="/recursos/Fotos/Logo.PNG">
             <h1>TU PÁGINA METEOROLÓGICA DE CONFIANZA</h1>
         </div>
 
-
+        <!--Este carrusel lo he usado de una plantilla de boostrap -->
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
@@ -208,7 +225,7 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-
+        <!--Un pequeño artículo para animar a los clientes a registrarse-->
         <article class="articulo">
             <h2>
                 ¿Quieres saber el tiempo que está haciendo?
@@ -220,8 +237,8 @@
 
         </article>
 
+        <!--Footer principal de mi página que icluirá las redes sociales y demás información-->
         <footer>
-
 
             <div id="linea_1" class="lineaO"></div>
 
@@ -247,7 +264,7 @@
 
         </footer>
 
-
+        <!--Distintas librerias de boostrap y jquery necesarias para nuestro proyecto-->
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.2/dist/umd/popper.min.js"
             integrity="sha384-q9CRHqZndzlxGLOj+xrdLDJa9ittGte1NksRmgJKeCV9DrM7Kz868XYqsKWPpAmn"
             crossorigin="anonymous"></script>
@@ -260,6 +277,7 @@
     </div>
 
     <div id="BodyLoginForm">
+        <!--Estructura principal de boostrap de un nav-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -268,13 +286,15 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
+                    <!--Situamos el logo principal en el centro-->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 col-lg-6 col-sm-6 d-flex justify-content-center">
                         <img src="/recursos/Fotos/Logo.PNG" id="imagePortada_2">
                     </ul>
 
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 col-lg-6 col-sm-6 d-flex justify-content-end">
                         <div class="widget">
+                            <!--Este boton nos permitirá desloguearnos de la aplicacción principal-->
+                            <!--Todavía en producción-->
                             <input id="logout" class="ui-button ui-widget ui-corner-all" type="submit"
                                 value="Cerrar_Sesion">
                             <!--<button id="logout" class="ui-button ui-widget ui-corner-all" type="submit"
@@ -282,26 +302,33 @@
                         </div>
                     </ul>
                 </div>
+
+
             </div>
         </nav>
 
 
 
 
-
-        <!--Div principal que contendrá el formulario de logueo-->
+        <!--Div principal que contendrá el formulario de los usuarios loguedos -->
         <div>
             <form id="DatosMeteo" class="form">
 
                 <h1>FORMULARIO DE DATOS METEOROLÓGICOS</h1>
                 <section class="row">
                     <main class="col-lg-6 col-md-6 col-xs-12">
+                        <!-- En este apartado recogeremos los lugares de la base de datos y los dibujaremos en el mapa -->
+                        <!-- El usuario seleccionará las ciudades deseadas en este apartado -->
                         <h2 class="subtitulos">SELECCIONA LAS LOCALIDADES QUE QUIERES VER</h2>
                         <div id="mapid"></div>
+                        <!-- Este js se encargará de pintar el mapa y de mostrar los lugares que ha seleccionado el usuario -->
                         <script src="/recursos/mapa.js"></script>
+                        <!--En este apartado construiremos una tabla en base a la selección del usuario -->
                         <div id="listaLugares"></div>
                     </main>
                     <main class="col-lg-6 col-md-6 col-xs-12">
+                        <!-- En este apartado habrá unos items meteorológicos seleccionados por defecto -->
+                        <!-- El usuario se encargará de seleccionar arrastrando los items meteorológicos que quiere activar o desactivar -->
                         <h2 class="subtitulos">SELECCIONA LOS ITEMS METEOROLÓGICOS QUE QUIERES VER</h2>
                         <div class="ContenedorItems">
                             <h3>DESACTIVADOS</h3>
@@ -311,6 +338,7 @@
                             <h3>ACTIVADOS</h3>
                             <div id="items_Activados"></div>
                         </div>
+                        <!-- Estos son los distintos items meteorológicos que tiene disponible el usuario -->
                         <div id="valorTemp" class="ui-button ui-widget ui-corner-all" title="Valor_Temp"
                             draggable="true"></div>
                         <div id="valorHumedad" class="ui-button ui-widget ui-corner-all" title="Valor_Hum"
@@ -320,10 +348,12 @@
                             draggable="true"></div>
                         <div id="prevision" class="ui-button ui-widget ui-corner-all" title="Tiempo" draggable="true">
                         </div>
+                        <!-- Para poder realizar el arrastre de los items meteorológicos será necesario este js-->
                         <script src="/recursos/_drag_drop.js"></script>
                     </main>
                 </section>
                 <main id="contPreferencias" class="col-12 ">
+                    <!-- La preferencias de usuario ya sean los lugares seleccionados o los items meteorológicos se guardarán al pulsar este pulsador-->
                     <button onclick="guardarPreferencias()" id="enviar_Datos" class="ui-button ui-widget ui-corner-all"
                         type="submit" value="Enviar Preferencias">Guardar
                         Preferencias</button>
@@ -334,11 +364,15 @@
         <div>
 
             <div id="bodyLoginResultados">
+                <!--En este js se construirá la respuesta de la selección -->
+                <!--El resultado de construirá a modo de cards-->
+                <!--Este js además también gestionará la construcción de un gráfico en base al lugar y las fechas selecciónadas-->
                 <script src="/recursos/construirRespuesta.js"></script>
                 <h1>RESULTADOS DE TU FORMULARIO</h1>
                 <div id="resultadoGenerales">
                     <h2 class="subtitulos">DATOS Y PREVISIONES DE LUGARES SELECCIONADOS</h2>
 
+                    <!-- En este apartado guardaremos el contenido de las cards generadas por el js-->
                     <div id="contenedorCards"></div>
                 </div>
 
@@ -347,9 +381,9 @@
                     <div id="contenedorGrafico">
                         <section class="row">
                             <main class="col-lg-6 col-md-6 col-sm-12">
-                                <p class="subidice">Selecciona el lugar  y el intervalo de fechas</p>
+                                <p class="subidice">Selecciona el lugar y el intervalo de fechas</p>
                                 <div id="selectorLugar"></div>
-                                
+
                                 <div id="calendario">
                                     <label for="desde">Desde</label>
                                     <input type="text" id="desde" name="desde">
@@ -366,22 +400,23 @@
                                 <div id="ContenedorGrafico"></div>
                             </main>
                         </section>
-                        
+
                         <section class="row">
                             <main class="col-lg-12 col-md-12 col-sm-12 opcionesBotones">
                                 <button id="construirGrafico" onclick="datosGrafico()"
                                     class="ui-button ui-widget ui-corner-all" type="submit"
                                     value="envioGrafico">envioGrafico</button>
                                 <button id="regresarFormulario" onclick="activarForm()"
-                                    class="ui-button ui-widget ui-corner-all" type="submit" value="Regresar Formulario">regresar
+                                    class="ui-button ui-widget ui-corner-all" type="submit"
+                                    value="Regresar Formulario">regresar
                                     Form</button>
                             </main>
                         </section>
                     </div>
-                    
-                    
 
-                       
+
+
+
 
                 </div>
 
@@ -471,6 +506,8 @@
 
 <script>
     function activarForm() {
+
+
         $("#bodyLoginResultados").css("display", "none");
         $("#DatosMeteo").css("display", "block");
 

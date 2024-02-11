@@ -1,20 +1,31 @@
+
+/* Está función se encargará de gestionar el drag and drop de los distintos elementos 
+que moverá el usuario en el formulario */
+
+//Definimos las principales variables de los items meteorológicos
 var valorTemp = document.getElementById("valorTemp");
 var valorHumedad = document.getElementById("valorHumedad");
 var valorViento = document.getElementById("valorViento");
 var prevision = document.getElementById("prevision");
 
+//Definimos un array de los ítems activados
 var elementosActivados = [];
+//Para que la selección de los elementos no se repita será necesario convertir el array en un set
 var elementosActivadosUnicos = new Set(elementosActivados);
 
-
-
+// Cuando el documento html este listo activaremos la función del drag and drop
 $(document).ready(function dragDrop() {
 
+    //Ponemos los contenedores de ítems activados y desactivados a un blanco semi opaco 
     $("#items_Activados,#items_Desactivados").css("background-color", "rgba(255, 255, 255, 0.650)");
+
+    //Ponemos por defecto los items de valorViento y prevision en el contenedor de los ítems  desactivados 
     $('#items_Desactivados').append(valorViento, prevision);
+
+    //Ponemos por defecto los items de varlorTemp y valor humedad en el contenedor de los items desactivados
     $('#items_Activados').append(valorTemp, valorHumedad);
 
-
+    // Guardaremos los los ides de los elementos activados en el set de elementos activados únicos 
     $("#items_Activados").children().each(function () {
         var idElemento = $(this).attr('id');
         elementosActivadosUnicos.add(idElemento);

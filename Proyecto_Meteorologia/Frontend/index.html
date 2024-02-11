@@ -378,18 +378,23 @@
 
                 <div id="resultadoLugarConcreto">
                     <h2 class="subtitulos" id="lugarConcreto">MEDICIÓN DE UN LUGAR CONCRETO EN UN INTERVALO</h2>
+                    <!--Este es el contenedor principal todos los elementos para construir el gráfico -->
                     <div id="contenedorGrafico">
                         <section class="row">
                             <main class="col-lg-6 col-md-6 col-sm-12">
                                 <p class="subidice">Selecciona el lugar y el intervalo de fechas</p>
+                                <!--Con este selector podremos elegir la ciudad a graficar -->
                                 <div id="selectorLugar"></div>
 
+                                <!--Con la herramienta de jquery construiremos un calendario para que usuario pueda seleccionar entre dos fechas -->
                                 <div id="calendario">
                                     <label for="desde">Desde</label>
                                     <input type="text" id="desde" name="desde">
                                     <label for="hasta">Hasta</label>
                                     <input type="text" id="hasta" name="hasta">
                                 </div>
+
+                                <!--En caso de que los campos estén vacíos nos mostrará un mensaje con esa alerta-->
                                 <div id="casoCamposVacios">
                                     <div class="alert alert-danger" role="alert">
                                         No has llenado todos los campos!
@@ -397,15 +402,21 @@
                                 </div>
                             </main>
                             <main class="col-lg-6 col-md-6 col-sm-12">
+
+                                <!--Este contenedor construirá el gráfico con el lugar y las fechas selecciónadas -->
                                 <div id="ContenedorGrafico"></div>
                             </main>
                         </section>
 
                         <section class="row">
                             <main class="col-lg-12 col-md-12 col-sm-12 opcionesBotones">
+
+                                <!--Este botón se encargará de enviar los datos del lugar seleccionado y el intervalo de fechas para que el gráfico se construya-->
                                 <button id="construirGrafico" onclick="datosGrafico()"
                                     class="ui-button ui-widget ui-corner-all" type="submit"
                                     value="envioGrafico">envioGrafico</button>
+
+                                <!--Este otro botón nos permitirá regresar al formulario de la pantalla anterior en caso de que queramos añadir o quitar un lugar o añadir o quitar algún item-->
                                 <button id="regresarFormulario" onclick="activarForm()"
                                     class="ui-button ui-widget ui-corner-all" type="submit"
                                     value="Regresar Formulario">regresar
@@ -415,18 +426,13 @@
                     </div>
 
 
-
-
-
                 </div>
-
-
-
 
 
             </div>
         </div>
 
+<!--Footer de los bodys del usuario logueado -->
         <footer>
 
             <div id="linea_1" class="lineaO"></div>
@@ -450,7 +456,7 @@
 
         </footer>
 
-
+        <!--Distintas librerías necesarias de jquery y boostrap-->
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.2/dist/umd/popper.min.js"
             integrity="sha384-q9CRHqZndzlxGLOj+xrdLDJa9ittGte1NksRmgJKeCV9DrM7Kz868XYqsKWPpAmn"
             crossorigin="anonymous"></script>
@@ -462,52 +468,64 @@
 </body>
 
 
+<!--Este scritp se encargará de gestionar el contenido general de los bodys que tenemos-->
+<!--Tambien se encargará de enviar a localStorage todos los cambios que el usuario haga en los lugares e items meteorológicos -->
 
 <script>
-
+    //Desactivamos por defecto todos los bodys que no sean el principal 
     $("#BodyLoginForm").css("display", "none");
     $("#bodyLoginResultados").css("display", "none");
+
+    //Desactivamos por defecto el gráfico final
     $("#grafico").css("display", "none");
 
 
     function guardarPreferencias() {
 
+  
+         //Este apartado guardara las preferencias del usuario en el local storage cuando se pulse el botón 
 
-        // Aquí puedes agregar lógica adicional antes de llamar a las funciones de guardado
         if (typeof guardadoLugares === 'function') {
+            //Está función guardará  los lugares seleccionados por el usuario en localStorage
             guardadoLugares();
         } else {
             console.error("La función de guardadoLugares no está definida.");
         }
 
         if (typeof guardadoMeteo === 'function') {
+            //Está función guardara los items meteorológicos seleccionados en localStorage 
             guardadoMeteo();
         } else {
             console.error("La función de guardadoMeteo no está definida.");
         }
-
+        //Una vez guardadas estás preferencias en localStorage procederemos a construir el resultado 
+        
+        //Primero construimos las card
         construccionCards();
 
+        //Luego el selector de lugares para la construcción del gráfico
         construirSelector();
 
+        //Y por último la construcción del calendario para construir el gráfico 
         construirCalendario();
 
+       //El gráfico se construirá cuando las dos anteriores funciones se hallan completado y se halla clicado en el botón de  construir gráfico 
 
+        //He decidido que toda la construcción de la respuesta se lleve a cabo antes que se visualice la ventana con todos los componentes ya cargados
 
-
-
+        //Desactivamos el body del formulario de datos meteorológicos
         $("#DatosMeteo").css("display", "none");
 
-
-
+        //Activamos el body principal que mostrará los resultados 
         $("#bodyLoginResultados").css("display", "block");
     }
 </script>
 
+<!--Creamos otra función  que nos permitirá activar el formulario en caso de que el usuario quiera realizar alguna modificación -->
 <script>
     function activarForm() {
 
-
+        //Ocultaresmos el body principal de resultados y activaremos el del formulario -->
         $("#bodyLoginResultados").css("display", "none");
         $("#DatosMeteo").css("display", "block");
 

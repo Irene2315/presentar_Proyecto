@@ -48,4 +48,10 @@ RUN if [ -z "$(ls -A /var/www/html/)" ]; then \
 EXPOSE 8000
 
 # Inicia el servidor web de PHP en el puerto 81
-CMD ["sh", "-c", "if php artisan migrate | grep -q 'Nothing to migrate'; then php artisan serve --host=0.0.0.0 --port=8000; else php artisan passport:install --force && php artisan serve --host=0.0.0.0 --port=8000; fi && if [ -z \"$(ls -A /var/www/html/vendor)\" ]; then composer install --ignore-platform-reqs --no-scripts --no-plugins --no-dev --optimize-autoloader --no-interaction; else echo \"Paquetes ya instalados! Omitiendo instalacion...\"; fi && if [ $USAR_WORKER -eq 1 ]; then php artisan migrate && php artisan schedule:work; else if php artisan migrate | grep -q 'Nothing to migrate'; then php artisan serve --host=0.0.0.0 --port=8000; else php artisan passport:install --force && php artisan serve --host=0.0.0.0 --port=8000; fi; fi"]
+CMD ["sh", "-c", "if php artisan migrate | grep -q 'Nothing to migrate'; 
+then php artisan serve --host=0.0.0.0 --port=8000; else php artisan passport:install --force 
+&& php artisan serve --host=0.0.0.0 --port=8000; fi && if [ -z \"$(ls -A /var/www/html/vendor)\" ]; 
+then composer install --ignore-platform-reqs --no-scripts --no-plugins --no-dev --optimize-autoloader --no-interaction; 
+else echo \"Paquetes ya instalados! Omitiendo instalacion...\"; fi && if [ $USAR_WORKER -eq 1 ]; then php artisan migrate && php 
+artisan schedule:work; else if php artisan migrate | grep -q 'Nothing to migrate'; then php artisan serve --host=0.0.0.0 --port=8000; 
+else php artisan passport:install --force && php artisan serve --host=0.0.0.0 --port=8000; fi; fi"]

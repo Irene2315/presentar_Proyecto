@@ -1,17 +1,38 @@
+
 //Este js se encargará de gestionar la respuesta de los datos guardados en el localHost
 
 //Guardamos la IP de servidor y aunque cambie de IP siempre cogerá la actualización con esta variable 
 var nombreHost = new URL(window.location.origin).hostname;
-
+var cadenaLugares='';
+var cadenaItemsMeteo='';
+//Inicializamos el array que guardara los lugares seleccionados
+var lugaresSelect = [];
+var arrayItems;
 //Está función se encargará de construir las cards en base a los datos recibidos por el localStorage 
 function construccionCards() {
 
     //Recogemos los lugares seleccionados y los items seleccionados por el localStorage 
-    var cadenaLugares = localStorage.getItem('lugaresSeleccion');
-    var cadenaItemsMeteo = localStorage.getItem('guardadoItems');
+    function handleLocalStorageChange(event) {
+        // Verifica si el evento está relacionado con el localStorage
+        if (event.key === 'lugaresSeleccion' || event.key === 'guardadoItems') {
+            // Actualiza las variables con los nuevos valores del localStorage
+             cadenaLugares = localStorage.getItem('lugaresSeleccion') || '';
+             cadenaItemsMeteo = localStorage.getItem('guardadoItems') || '';
 
+            // Luego, realiza cualquier acción necesaria con las nuevas variables
+            //console.log('Variables actualizadas:', cadenaLugares, cadenaItemsMeteo);
+        }
+    }
 
-    var arrayItems = JSON.parse(cadenaItemsMeteo);
+    // Agrega un event listener para el evento de cambio en el localStorage
+    window.addEventListener('storage', handleLocalStorageChange);
+
+    // Inicializa las variables con los valores actuales del localStorage
+    cadenaLugares = localStorage.getItem('lugaresSeleccion') || '';
+    cadenaItemsMeteo = localStorage.getItem('guardadoItems') || '';
+    console.log('Variables actualizadas:', cadenaLugares, cadenaItemsMeteo);
+
+    arrayItems = JSON.parse(cadenaItemsMeteo);
 
     //Token de acceso de la petición (simulación del referencia al token de usuario)
     const options = {
@@ -24,8 +45,7 @@ function construccionCards() {
     //console.log(arrayLugares);
     //console.log(arrayItems);
 
-    //Inicializamos el array que guardara los lugares seleccionados
-    var lugaresSelect = [];
+    
 
     //Se realiza la petición a laravel de los lugares seleccionados en el formulario 
     fetch(`http://${nombreHost}:8083/api/lugaresSeleccionados/` + cadenaLugares, options)
@@ -143,7 +163,7 @@ function construccionCards() {
     fetch(`http://${nombreHost}:8083/api/itemsLugarAhora/ ` + cadenaLugares, options)
         .then(response => response.json())
         .then(data => {
-            
+
             //Buscamos la petición con el mismo id de lugar que el lugar seleccionado 
             data.forEach(itemsLugarSelectAhora => {
                 const peticionActual = consultas.find(consulta => consulta.idLugar == itemsLugarSelectAhora.idLugar);
@@ -179,7 +199,7 @@ function construccionCards() {
     Intervalo();
 
     //En las siguientes ocasiones el intervalo será de 3 segundos 
-    setInterval(Intervalo, 3000);
+    setInterval(Intervalo, 60000);
 
     //Las cards se generarán la primera vez y las siguientes cada 3 segundos 
     function Intervalo() {
@@ -198,9 +218,9 @@ function construccionCards() {
                 data.forEach(itemsLugarSelectAhora => {
 
                     //Buscamos el nombre de lugar y la petición de ese lugar
-                    const lugarCorrespondiente = lugaresSelect.find(lugar => lugar.id == itemsLugarSelectAhora.idLugar);
-                    const peticionActual = consultas.find(consulta => consulta.idLugar == itemsLugarSelectAhora.idLugar);
-
+                    var lugarCorrespondiente = lugaresSelect.find(lugar => lugar.id == itemsLugarSelectAhora.idLugar);
+                    var peticionActual = consultas.find(consulta => consulta.idLugar == itemsLugarSelectAhora.idLugar);
+                    
                     construirCards += `<div class="col-lg-3 col-md-6 col-sm-12">`;
 
                     //Construimos la card con su id "nombre lugar" correspondiente 
@@ -468,7 +488,7 @@ function datosGrafico() {
                     //Recogemos la fecha y la pasamos al formato español 
                     var fecha = new Date(itemDataSelect.fecha);
                     var formatoFecha = (formatearNumeroConCero(fecha.getDate()) + "/" + formatearNumeroConCero(fecha.getMonth() + 1) + "/" + fecha.getFullYear());
-                    
+
                     //Recogemos la temperatura y humedad y lo convertimos en float para asegurarnos que lo coja como un valor numérico 
                     var mediaTemp = parseFloat(itemDataSelect.mediaTemp);
                     var mediaHumedad = parseFloat(itemDataSelect.mediaHumedad);
@@ -497,7 +517,7 @@ let grafico = null;
 function construirGrafico() {
     //Si ya hay un gráfico se actualizarán a los valores nuevos que el usuario a seleccionado 
     if (grafico) {
-        
+
         grafico.data.labels = fechas;
         grafico.data.datasets[0].data = temperaturas;
         grafico.data.datasets[1].data = humedades;
